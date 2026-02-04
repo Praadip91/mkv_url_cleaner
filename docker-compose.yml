@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mkv-cleaner:
-    image: ghcr.io/Praadip91/mkv_url_cleaner:main
+    image: ghcr.io/praadip91/mkv_url_cleaner:main
     container_name: mkv-url-cleaner
     restart: unless-stopped
 

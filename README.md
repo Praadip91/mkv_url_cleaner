@@ -89,7 +89,7 @@ END_HOUR=2
 Image disponible sur GitHub Container Registry :
 
 ```bash
-ghcr.io/Praadip91/mkv_url_cleaner:main
+ghcr.io/praadip91/mkv_url_cleaner:main
 ```
 
 ## 📚 Documentation Complète
