@@ -28,7 +28,7 @@ SOURCE_ROOT=/media
 SOURCE_FOLDERS='["/media/folder1","/media/folder2"]'
 
 # Emplacement hôte pour stocker cleanfile.txt (persistant)
-CLEANFILE_HOST_DIR=/docker/mkv_url_cleaner_daniel
+CLEANFILE_HOST_DIR=/docker/mkv_url_cleaner
 
 WATCH_MODE=True
 WATCH_INTERVAL=60
@@ -64,8 +64,8 @@ docker compose up -d
 | `START_HOUR` | `3` | Heure de début (0-23) |
 | `END_HOUR` | `5` | Heure de fin (0-23) |
 | `ENABLE_SCHEDULING` | `True` | Activer la planification |
-| `CLEANFILE_HOST_DIR` | `/docker/mkv_url_cleaner_daniel` | Dossier hôte où sera stocké `cleanfile.txt` |
-| `CLEANFILE_PATH` | `/docker/mkv_url_cleaner_daniel/cleanfile.txt` | Chemin utilisé dans le conteneur pour le fichier de suivi |
+| `CLEANFILE_HOST_DIR` | `/docker/mkv_url_cleaner` | Dossier hôte où sera stocké `cleanfile.txt` |
+| `CLEANFILE_PATH` | `/docker/mkv_url_cleaner/cleanfile.txt` | Chemin utilisé dans le conteneur pour le fichier de suivi |
 
 ### Planification Horaire
 

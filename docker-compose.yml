@@ -28,14 +28,13 @@ services:
       - END_HOUR=${END_HOUR:-5}
       - ENABLE_SCHEDULING=${ENABLE_SCHEDULING:-True}
 
-      # 📁 Support multi-dossiers (JSON array). Valeur par défaut: ['/media']
-      # Exemple: '["/media/folder1", "/media/folder2"]'
-      - SOURCE_FOLDERS=${SOURCE_FOLDERS:-'["/media"]'}
+      # 📁 Support multi-dossiers (JSON array)
+      - SOURCE_FOLDERS=${SOURCE_FOLDERS:-"[/media]"}
 
       # Compatibilité: garder aussi SOURCE_FOLDER (premier dossier)
       - SOURCE_FOLDER=${SOURCE_FOLDER:-/media}
 
-      # Chemin du fichier de suivi persistant (sur le volume monté ci-dessus)
+      # Chemin du fichier de suivi persistant
       - CLEANFILE_PATH=/docker/mkv_url_cleaner/cleanfile.txt
 
     # Limites de ressources
