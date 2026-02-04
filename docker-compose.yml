@@ -5,32 +5,39 @@ services:
     image: ghcr.io/Praadip91/mkv_url_cleaner:main
     container_name: mkv-url-cleaner
     restart: unless-stopped
-    
+
     volumes:
-      # Dossier source contenant les fichiers MKV à nettoyer
-      - ${SOURCE_FOLDER:-/media/videos}:/media
-      
-      # Dossier de config pour le .env (optionnel)
-      - ${CONFIG_FOLDER:-/config}:/config
-    
+      # Monter un point racine contenant vos dossiers sources (ex: /media)
+      # Le script lira les chemins absolus configurés dans SOURCE_FOLDERS
+      - ${SOURCE_ROOT:-/media}:/media:rw
+
+      # Emplacement dédié pour stocker cleanfile.txt (persistant sur l'hôte)
+      - ${CLEANFILE_HOST_DIR:-/docker/mkv_url_cleaner}:/docker/mkv_url_cleaner:rw
+
     environment:
       # 👀 Mode surveillance
       - WATCH_MODE=${WATCH_MODE:-True}
       - WATCH_INTERVAL=${WATCH_INTERVAL:-60}
-      
+
       # 🔧 Paramètres de nettoyage
       - ADD_CLEAN_SUFFIX=${ADD_CLEAN_SUFFIX:-True}
       - REMOVE_SITE_PREFIX=${REMOVE_SITE_PREFIX:-True}
-      
+
       # ⏰ Planification horaire
       - START_HOUR=${START_HOUR:-3}
       - END_HOUR=${END_HOUR:-5}
       - ENABLE_SCHEDULING=${ENABLE_SCHEDULING:-True}
-      
-      # 📁 Dossier source
-      - SOURCE_FOLDER=/media
-      - CLEANFILE_PATH=/config/cleanfile.txt
-    
+
+      # 📁 Support multi-dossiers (JSON array). Valeur par défaut: ['/media']
+      # Exemple: '["/media/folder1", "/media/folder2"]'
+      - SOURCE_FOLDERS=${SOURCE_FOLDERS:-'["/media"]'}
+
+      # Compatibilité: garder aussi SOURCE_FOLDER (premier dossier)
+      - SOURCE_FOLDER=${SOURCE_FOLDER:-/media}
+
+      # Chemin du fichier de suivi persistant (sur le volume monté ci-dessus)
+      - CLEANFILE_PATH=/docker/mkv_url_cleaner/cleanfile.txt
+
     # Limites de ressources
     deploy:
       resources:
@@ -40,7 +47,7 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
-    
+
     # Logs
     logging:
       driver: "json-file"
